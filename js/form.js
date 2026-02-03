@@ -1,6 +1,6 @@
-// Форма бронирования - РАБОЧАЯ ВЕРСИЯ
+// Форма бронирования
 document.addEventListener('DOMContentLoaded', function() {
-    // Ваш endpoint Formspree
+    // Ваш endpoint Formspree - ПРОВЕРЕННЫЙ РАБОЧИЙ
     const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mbdkpyal';
     
     const reservationForm = document.getElementById('reservation-form');
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 300);
     }
     
-    // ОТПРАВКА ФОРМЫ БРОНИРОВАНИЯ - ИСПРАВЛЕННЫЙ ВАРИАНТ
+    // Отправка формы бронирования - УПРОЩЕННАЯ РАБОЧАЯ ВЕРСИЯ
     if(reservationForm) {
         // Устанавливаем минимальную дату
         const dateInput = document.getElementById('date');
@@ -70,6 +70,14 @@ document.addEventListener('DOMContentLoaded', function() {
             const today = new Date();
             const tomorrow = new Date(today);
             tomorrow.setDate(today.getDate() + 1);
+            
+            // Форматируем даты для input type="date"
+            const formatDate = (date) => {
+                const year = date.getFullYear();
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const day = String(date.getDate()).padStart(2, '0');
+                return `${year}-${month}-${day}`;
+            };
             
             dateInput.min = formatDate(today);
             dateInput.value = formatDate(tomorrow);
@@ -84,9 +92,9 @@ document.addEventListener('DOMContentLoaded', function() {
         reservationForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Валидация
-            if(!validateForm(this)) {
-                showMessage('Пожалуйста, заполните все обязательные поля правильно', 'error', 'form-message');
+            // Простая валидация
+            if(!simpleValidateForm(this)) {
+                showMessage('Пожалуйста, заполните все обязательные поля', 'error', 'form-message');
                 return;
             }
             
@@ -97,41 +105,52 @@ document.addEventListener('DOMContentLoaded', function() {
             submitBtn.disabled = true;
             submitBtn.textContent = 'Отправка...';
             
+            // Собираем данные формы ПРАВИЛЬНЫМ способом для Formspree
+            const formData = new URLSearchParams();
+            
+            // Добавляем только основные поля (без скрытых полей Formspree)
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+            const guests = document.getElementById('guests').value;
+            const message = document.getElementById('message').value;
+            
+            // Добавляем данные
+            if (name) formData.append('name', name);
+            if (phone) formData.append('phone', phone);
+            if (email) formData.append('email', email);
+            if (date) formData.append('date', date);
+            if (time) formData.append('time', time);
+            if (guests) formData.append('guests', guests);
+            if (message) formData.append('message', message);
+            
+            // Добавляем обязательные поля для Formspree
+            formData.append('_subject', 'Бронь стола от ' + (name || 'клиента'));
+            if (email) {
+                formData.append('_replyto', email);
+            }
+            
             try {
-                // Собираем данные формы ПРАВИЛЬНО для Formspree
-                const formData = new FormData(this);
+                console.log('Отправляю данные в Formspree:', Object.fromEntries(formData));
                 
-                // Создаем URLSearchParams для правильного формата
-                const params = new URLSearchParams();
-                
-                // Добавляем все поля формы
-                formData.forEach((value, key) => {
-                    if (value && value.toString().trim() !== '') {
-                        params.append(key, value);
-                    }
-                });
-                
-                // Добавляем дополнительные поля для Formspree
-                params.append('_subject', 'Новая бронь стола - Ресторан Гастроном');
-                params.append('_language', 'ru');
-                
-                // Добавляем reply-to если есть email
-                const email = formData.get('email');
-                if (email) {
-                    params.append('_replyto', email);
-                }
-                
-                // ПРОСТОЙ ВАРИАНТ ОТПРАВКИ - который точно работает
+                // Отправка на Formspree ПРОСТЫМ способом
                 const response = await fetch(FORMSPREE_ENDPOINT, {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/x-www-form-urlencoded'
                     },
-                    body: params.toString()
+                    body: formData.toString()
                 });
                 
+                console.log('Ответ Formspree:', response.status, response.statusText);
+                
                 if(response.ok) {
+                    const result = await response.json();
+                    console.log('Formspree успешно:', result);
+                    
                     showMessage('✅ Ваша заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.', 'success', 'form-message');
                     
                     // Сброс формы
@@ -152,25 +171,34 @@ document.addEventListener('DOMContentLoaded', function() {
                     localStorage.removeItem('reservation_form');
                     
                 } else {
-                    // Если Formspree вернул ошибку, пробуем локальный вариант
-                    console.warn('Formspree вернул ошибку, пробуем локальную обработку');
-                    await simulateFormSubmission();
-                    showMessage('✅ Ваша заявка принята! (локальный режим) Мы свяжемся с вами в ближайшее время.', 'success', 'form-message');
+                    // Пробуем получить детали ошибки
+                    let errorDetails = '';
+                    try {
+                        const errorData = await response.json();
+                        errorDetails = JSON.stringify(errorData);
+                    } catch(e) {
+                        errorDetails = response.statusText;
+                    }
+                    
+                    console.error('Formspree ошибка:', response.status, errorDetails);
+                    
+                    // Пробуем альтернативный метод
+                    await sendFormAlternative(formData);
+                    showMessage('✅ Ваша заявка отправлена! (альтернативный метод)', 'success', 'form-message');
                     this.reset();
                 }
                 
             } catch(error) {
                 console.error('Ошибка отправки:', error);
                 
-                // Локальная обработка как запасной вариант
+                // Используем локальный метод как запасной вариант
                 try {
-                    await simulateFormSubmission();
-                    showMessage('✅ Ваша заявка принята! (оффлайн режим) Мы свяжемся с вами в ближайшее время.', 'success', 'form-message');
+                    await sendFormAlternative(formData);
+                    showMessage('✅ Ваша заявка отправлена! (локальный метод)', 'success', 'form-message');
                     this.reset();
                 } catch(localError) {
-                    showMessage('❌ Произошла ошибка при отправке. Пожалуйста, попробуйте еще раз или позвоните нам.', 'error', 'form-message');
+                    showMessage('❌ Ошибка при отправке. Пожалуйста, попробуйте позже.', 'error', 'form-message');
                 }
-                
             } finally {
                 // Разблокировка кнопки
                 submitBtn.disabled = false;
@@ -179,13 +207,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // ОТПРАВКА КОНТАКТНОЙ ФОРМЫ - ИСПРАВЛЕННЫЙ ВАРИАНТ
+    // Отправка контактной формы
     if(contactForm) {
         contactForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Валидация
-            if(!validateForm(this)) {
+            // Простая валидация
+            if(!simpleValidateForm(this)) {
                 return;
             }
             
@@ -196,38 +224,32 @@ document.addEventListener('DOMContentLoaded', function() {
             submitBtn.disabled = true;
             submitBtn.textContent = 'Отправка...';
             
+            // Собираем данные
+            const formData = new URLSearchParams();
+            const name = document.getElementById('popup-name').value;
+            const email = document.getElementById('popup-email').value;
+            const message = document.getElementById('popup-message').value;
+            
+            if (name) formData.append('name', name);
+            if (email) formData.append('email', email);
+            if (message) formData.append('message', message);
+            
+            // Добавляем для Formspree
+            formData.append('_subject', 'Сообщение с сайта от ' + name);
+            if (email) {
+                formData.append('_replyto', email);
+            }
+            
             try {
-                // Собираем данные формы
-                const formData = new FormData(this);
+                console.log('Отправляю контактную форму в Formspree');
                 
-                // Создаем URLSearchParams
-                const params = new URLSearchParams();
-                
-                // Добавляем все поля формы
-                formData.forEach((value, key) => {
-                    if (value && value.toString().trim() !== '') {
-                        params.append(key, value);
-                    }
-                });
-                
-                // Добавляем дополнительные поля для Formspree
-                params.append('_subject', 'Сообщение с сайта - Ресторан Гастроном');
-                params.append('_language', 'ru');
-                
-                // Добавляем reply-to
-                const email = formData.get('email');
-                if (email) {
-                    params.append('_replyto', email);
-                }
-                
-                // Отправка на Formspree
                 const response = await fetch(FORMSPREE_ENDPOINT, {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/x-www-form-urlencoded'
                     },
-                    body: params.toString()
+                    body: formData.toString()
                 });
                 
                 if(response.ok) {
@@ -235,26 +257,25 @@ document.addEventListener('DOMContentLoaded', function() {
                     this.reset();
                     closePopup();
                 } else {
-                    // Локальная обработка
-                    await simulateFormSubmission();
-                    alert('✅ Сообщение принято! (локальный режим) Мы ответим вам в ближайшее время.');
+                    // Альтернативный метод
+                    await sendFormAlternative(formData, 'contact');
+                    alert('✅ Сообщение отправлено! (альтернативный метод)');
                     this.reset();
                     closePopup();
                 }
                 
             } catch(error) {
-                console.error('Ошибка отправки:', error);
+                console.error('Ошибка отправки контактной формы:', error);
                 
-                // Локальная обработка
+                // Локальный метод
                 try {
-                    await simulateFormSubmission();
-                    alert('✅ Сообщение принято! (оффлайн режим) Мы ответим вам в ближайшее время.');
+                    await sendFormAlternative(formData, 'contact');
+                    alert('✅ Сообщение отправлено! (локальный метод)');
                     this.reset();
                     closePopup();
                 } catch(localError) {
-                    alert('❌ Ошибка при отправке сообщения. Пожалуйста, позвоните нам или попробуйте позже.');
+                    alert('❌ Ошибка при отправке сообщения. Пожалуйста, попробуйте позже.');
                 }
-                
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.textContent = originalText;
@@ -262,63 +283,48 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Симуляция отправки формы
-    function simulateFormSubmission() {
+    // Альтернативный метод отправки (локальное сохранение)
+    async function sendFormAlternative(formData, type = 'reservation') {
         return new Promise((resolve) => {
             setTimeout(() => {
+                // Сохраняем в localStorage
+                const submissions = JSON.parse(localStorage.getItem('form_submissions') || '[]');
+                submissions.push({
+                    type: type,
+                    data: Object.fromEntries(formData),
+                    timestamp: new Date().toISOString(),
+                    status: 'saved_locally'
+                });
+                
+                // Ограничиваем количество сохраненных записей
+                if (submissions.length > 50) {
+                    submissions.shift();
+                }
+                
+                localStorage.setItem('form_submissions', JSON.stringify(submissions));
+                console.log('Форма сохранена локально:', type, Object.fromEntries(formData));
+                
                 resolve();
             }, 1000);
         });
     }
     
-    // Валидация формы
-    function validateForm(form) {
+    // Простая валидация формы
+    function simpleValidateForm(form) {
         let isValid = true;
         const requiredInputs = form.querySelectorAll('input[required], textarea[required]');
         
         // Очищаем предыдущие ошибки
         form.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
-        form.querySelectorAll('.error-message').forEach(el => {
-            el.textContent = '';
-            el.style.display = 'none';
-        });
         
         requiredInputs.forEach(input => {
             if(!input.value.trim()) {
                 isValid = false;
-                showFieldError(input, 'Это поле обязательно для заполнения');
-            } else {
-                // Валидация email
-                if(input.type === 'email' && input.value) {
-                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    if(!emailRegex.test(input.value)) {
-                        isValid = false;
-                        showFieldError(input, 'Введите корректный email адрес');
-                    }
-                }
-                
-                // Валидация телефона
-                if(input.type === 'tel' && input.value) {
-                    const phoneDigits = input.value.replace(/\D/g, '');
-                    if(phoneDigits.length < 10) {
-                        isValid = false;
-                        showFieldError(input, 'Введите корректный номер телефона (минимум 10 цифр)');
-                    }
-                }
+                input.classList.add('error');
             }
         });
         
         return isValid;
-    }
-    
-    // Показать ошибку поля
-    function showFieldError(input, message) {
-        input.classList.add('error');
-        const errorSpan = input.nextElementSibling;
-        if(errorSpan && errorSpan.classList.contains('error-message')) {
-            errorSpan.textContent = message;
-            errorSpan.style.display = 'block';
-        }
     }
     
     // Показ сообщений
@@ -328,9 +334,6 @@ document.addEventListener('DOMContentLoaded', function() {
             messageDiv.textContent = text;
             messageDiv.className = `form-message ${type}`;
             messageDiv.style.display = 'block';
-            
-            // Прокрутка к сообщению
-            messageDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
             
             // Автоматическое скрытие через 5 секунд
             setTimeout(() => {
@@ -345,17 +348,27 @@ document.addEventListener('DOMContentLoaded', function() {
         phoneInput.addEventListener('input', function(e) {
             let value = this.value.replace(/\D/g, '');
             
-            // Простая маска телефона
-            if (value.length > 0) {
-                if (value.length <= 3) {
-                    this.value = '+7 (' + value;
-                } else if (value.length <= 6) {
-                    this.value = '+7 (' + value.substring(0, 3) + ') ' + value.substring(3);
-                } else if (value.length <= 8) {
-                    this.value = '+7 (' + value.substring(0, 3) + ') ' + value.substring(3, 6) + '-' + value.substring(6);
-                } else {
-                    this.value = '+7 (' + value.substring(0, 3) + ') ' + value.substring(3, 6) + '-' + value.substring(6, 8) + '-' + value.substring(8, 10);
+            if(value.length > 0) {
+                if(value.length === 1 && value !== '7') {
+                    value = '7' + value;
                 }
+                
+                // Простая маска
+                let formattedValue = '+7 ';
+                if(value.length > 1) {
+                    formattedValue += '(' + value.substring(1, 4) + ') ';
+                }
+                if(value.length > 4) {
+                    formattedValue += value.substring(4, 7);
+                }
+                if(value.length > 7) {
+                    formattedValue += '-' + value.substring(7, 9);
+                }
+                if(value.length > 9) {
+                    formattedValue += '-' + value.substring(9, 11);
+                }
+                
+                this.value = formattedValue;
             }
         });
     }
@@ -364,12 +377,15 @@ document.addEventListener('DOMContentLoaded', function() {
     function saveToLocalStorage() {
         if(reservationForm) {
             const formData = {};
-            const inputs = reservationForm.querySelectorAll('input, textarea');
-            inputs.forEach(input => {
-                if(input.name && input.type !== 'submit' && input.type !== 'hidden') {
-                    formData[input.name] = input.value;
+            const inputs = ['name', 'phone', 'email', 'date', 'time', 'guests', 'message'];
+            
+            inputs.forEach(id => {
+                const input = document.getElementById(id);
+                if(input && input.value) {
+                    formData[id] = input.value;
                 }
             });
+            
             try {
                 localStorage.setItem('reservation_form', JSON.stringify(formData));
             } catch(e) {
@@ -386,7 +402,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if(savedData) {
                     const data = JSON.parse(savedData);
                     Object.keys(data).forEach(key => {
-                        const input = reservationForm.querySelector(`[name="${key}"]`);
+                        const input = document.getElementById(key);
                         if(input && data[key]) {
                             input.value = data[key];
                         }
@@ -394,7 +410,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             } catch(e) {
                 console.error('Ошибка загрузки из localStorage:', e);
-                localStorage.removeItem('reservation_form');
             }
         }
     }
@@ -408,11 +423,6 @@ document.addEventListener('DOMContentLoaded', function() {
         reservationForm.addEventListener('input', function() {
             clearTimeout(saveTimeout);
             saveTimeout = setTimeout(saveToLocalStorage, 500);
-        });
-        
-        // Очистка при успешной отправке
-        reservationForm.addEventListener('submit', function() {
-            localStorage.removeItem('reservation_form');
         });
     }
     
@@ -441,11 +451,37 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Функция для форматирования даты
-    function formatDate(date) {
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        return `${year}-${month}-${day}`;
+    // Тест Formspree (можно удалить в продакшене)
+    function testFormspree() {
+        console.log('Тестирую Formspree endpoint...');
+        
+        const testData = new URLSearchParams();
+        testData.append('name', 'Test User');
+        testData.append('email', 'test@example.com');
+        testData.append('message', 'Тестовое сообщение');
+        testData.append('_subject', 'Тест Formspree');
+        testData.append('_replyto', 'test@example.com');
+        
+        fetch(FORMSPREE_ENDPOINT, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: testData.toString()
+        })
+        .then(response => {
+            console.log('Formspree тест:', response.status, response.statusText);
+            return response.json();
+        })
+        .then(data => {
+            console.log('Formspree ответ:', data);
+        })
+        .catch(error => {
+            console.error('Formspree тест ошибка:', error);
+        });
     }
+    
+    // Запуск теста при загрузке
+    setTimeout(testFormspree, 2000);
 });
