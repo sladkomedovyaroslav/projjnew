@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ресторан "Гастроном" | Изысканная кухня</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/mobile.css" media="screen and (max-width: 768px)">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Шапка с видео -->
+    <header class="header">
+        <div class="video-container">
+            <video autoplay muted loop playsinline class="header-video">
+                <source src="assets/video.mp4" type="video/mp4">
+                Ваш браузер не поддерживает видео.
+            </video>
+        </div>
+        <div class="header-overlay"></div>
+        
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-container">
+                    <a href="#" class="logo">
+                        <img src="img/logo.png" alt="Гастроном">
+                    </a>
+                    
+                    <!-- Десктопное меню -->
+                    <ul class="nav-menu">
+                        <li><a href="#about">О нас</a></li>
+                        <li class="menu-dropdown">
+                            <a href="#menu">Меню ▾</a>
+                            <ul class="dropdown">
+                                <li><a href="#starters">Закуски</a></li>
+                                <li><a href="#main">Основные блюда</a></li>
+                                <li><a href="#desserts">Десерты</a></li>
+                                <li><a href="#drinks">Напитки</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#gallery">Галерея</a></li>
+                        <li><a href="#specials">Спецпредложения</a></li>
+                        <li><a href="#calculator">Калькулятор</a></li>
+                        <li><a href="#contacts">Контакты</a></li>
+                    </ul>
+                    
+                    <!-- Кнопка связи для десктопа -->
+                    <button class="contact-btn desktop-contact">Связь с нами</button>
+                    
+                    <!-- Мобильное меню -->
+                    <button class="mobile-menu-btn" aria-label="Открыть меню">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Мобильное меню (скрытое) -->
+        <div class="mobile-menu">
+            <div class="mobile-menu-header">
+                <button class="mobile-menu-close">&times;</button>
+            </div>
+            <ul class="mobile-nav">
+                <li><a href="#about">О нас</a></li>
+                <li class="mobile-dropdown">
+                    <a href="#menu" class="dropdown-toggle">Меню ▾</a>
+                    <ul class="mobile-submenu">
+                        <li><a href="#starters">Закуски</a></li>
+                        <li><a href="#main">Основные блюда</a></li>
+                        <li><a href="#desserts">Десерты</a></li>
+                        <li><a href="#drinks">Напитки</a></li>
+                    </ul>
+                </li>
+                <li><a href="#gallery">Галерея</a></li>
+                <li><a href="#specials">Спецпредложения</a></li>
+                <li><a href="#calculator">Калькулятор</a></li>
+                <li><a href="#contacts">Контакты</a></li>
+                <li><button class="contact-btn mobile-contact">Связь с нами</button></li>
+            </ul>
+        </div>
+        
+        <div class="header-content">
+            <h1 class="header-title">Изысканная кухня от шеф-повара</h1>
+            <p class="header-subtitle">Авторские блюда из свежайших продуктов</p>
+            <a href="#reservation" class="btn-reserve">Забронировать стол</a>
+        </div>
+    </header>
+
+    <!-- Основной контент -->
+    <main>
+        <!-- Секция "О нас" -->
+        <section id="about" class="section about">
+            <div class="container">
+                <h2 class="section-title">О нашем ресторане</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>Мы создаем неповторимую атмосферу и предлагаем блюда, которые запомнятся вам надолго.</p>
+                        <p>Наша команда поваров с многолетним опытом работает только с лучшими продуктами от местных поставщиков.</p>
+                        <p>Каждое блюдо - это произведение искусства, созданное с любовью и вниманием к деталям.</p>
+                    </div>
+                    <div class="about-image">
+                        <img src="img/restaurant-interior.jpg" alt="Интерьер ресторана">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Секция "Специальные предложения" -->
+        <section id="specials" class="section specials">
+            <div class="container">
+                <h2 class="section-title">Специальные предложения</h2>
+                <div class="specials-container">
+                    <!-- Кнопка назад -->
+                    <button class="slider-btn prev-btn" aria-label="Предыдущий слайд">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    
+                    <!-- Слайдер -->
+                    <div class="specials-slider">
+                        <div class="slider-wrapper">
+                            <!-- Слайд 1 -->
+                            <div class="special-slide">
+                                <div class="slide-content">
+                                    <div class="slide-image">
+                                        <img src="img/dishes/dish1.jpg" alt="Блюдо дня">
+                                    </div>
+                                    <div class="slide-info">
+                                        <h3 class="slide-title">Блюдо дня</h3>
+                                        <p class="slide-description">Стейк из мраморной говядины с овощами гриль и трюфельным соусом.</p>
+                                        <div class="slide-price">
+                                            <span class="old-price">1850 ₽</span>
+                                            <span class="new-price">1550 ₽</span>
+                                        </div>
+                                        <button class="slide-order-btn">Заказать сейчас</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Слайд 2 -->
+                            <div class="special-slide">
+                                <div class="slide-content">
+                                    <div class="slide-image">
+                                        <img src="img/dishes/dish2.jpg" alt="Шеф-меню">
+                                    </div>
+                                    <div class="slide-info">
+                                        <h3 class="slide-title">Шеф-меню</h3>
+                                        <p class="slide-description">Утиная грудка с ягодным соусом, запеченным картофелем и зеленью.</p>
+                                        <div class="slide-price">
+                                            <span class="old-price">1250 ₽</span>
+                                            <span class="new-price">990 ₽</span>
+                                        </div>
+                                        <button class="slide-order-btn">Заказать сейчас</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Слайд 3 -->
+                            <div class="special-slide">
+                                <div class="slide-content">
+                                    <div class="slide-image">
+                                        <img src="img/dishes/dish3.jpg" alt="Десерт недели">
+                                    </div>
+                                    <div class="slide-info">
+                                        <h3 class="slide-title">Десерт недели</h3>
+                                        <p class="slide-description">Тирамису по-итальянски с домашним печеньем савоярди и маскарпоне.</p>
+                                        <div class="slide-price">
+                                            <span class="old-price">550 ₽</span>
+                                            <span class="new-price">450 ₽</span>
+                                        </div>
+                                        <button class="slide-order-btn">Заказать сейчас</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Слайд 4 -->
+                            <div class="special-slide">
+                                <div class="slide-content">
+                                    <div class="slide-image">
+                                        <img src="img/dishes/dish4.jpg" alt="Паста дня">
+                                    </div>
+                                    <div class="slide-info">
+                                        <h3 class="slide-title">Паста дня</h3>
+                                        <p class="slide-description">Спагетти карбонара с панчеттой, пармезаном и домашним соусом.</p>
+                                        <div class="slide-price">
+                                            <span class="old-price">890 ₽</span>
+                                            <span class="new-price">750 ₽</span>
+                                        </div>
+                                        <button class="slide-order-btn">Заказать сейчас</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Индикаторы слайдов -->
+                        <div class="slider-indicators">
+                            <button class="indicator active" data-slide="0"></button>
+                            <button class="indicator" data-slide="1"></button>
+                            <button class="indicator" data-slide="2"></button>
+                            <button class="indicator" data-slide="3"></button>
+                        </div>
+                    </div>
+                    
+                    <!-- Кнопка вперед -->
+                    <button class="slider-btn next-btn" aria-label="Следующий слайд">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Секция "Калькулятор заказа" -->
+        <section id="calculator" class="section calculator">
+            <div class="container">
+                <h2 class="section-title">Рассчитайте стоимость вашего заказа</h2>
+                <div class="calculator-content">
+                    <div class="calculator-form">
+                        <div class="calculator-categories">
+                            <div class="category" data-category="starters">
+                                <h3>Закуски</h3>
+                                <div class="category-items">
+                                    <div class="calculator-item">
+                                        <label>
+                                            <input type="checkbox" name="item" value="450" data-name="Брускетта с томатами">
+                                            <span class="item-name">Брускетта с томатами</span>
+                                            <span class="item-price">450 ₽</span>
+                                        </label>
+                                    </div>
+                                    <div class="calculator-item">
+                                        <label>
+                                            <input type="checkbox" name="item" value="690" data-name="Карпаччо из говядины">
+                                            <span class="item-name">Карпаччо из говядины</span>
+                                            <span class="item-price">690 ₽</span>
+                                        </label>
+                                    </div>
+                                    <div class="calculator-item">
+                                        <label>
+                                            <input type="checkbox" name="item" value="780" data-name="Тартар из тунца">
+                                            <span class="item-name">Тартар из тунца</span>
+                                            <span class="item-price">780 ₽</span>
+                                        </label>
+                                    </div>
+                                    <div class="calculator-item">
+                                        <label>
+                                            <input type="checkbox" name="item" value="550" data-name="Сырная тарелка">
+                                            <span class="item-name">Сырная тарелка</span>
+                                            <span class="item-price">550 ₽</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="category" data-category="main">
+                                <h3>Основные блюда</h3>
+                                <div class="category-items">
+                                    <div class="calculator-item">
+                                        <label>
+                                            <input type="checkbox" name="item" value="1850" data-name="Стейк Рибай">
+                                            <span class="item-name">Стейк Рибай</span>
+                                            <span class="item-price">1850 ₽</span>
+                                        </label>
+                                    </div>
+                                    <div class="calculator-item">
+                                        <label>
+                                            <input type="checkbox" name="item" value="1250" data-name="Лосось на гриле">
+                                            <span class="item-name">Лосось на гриле</span>
+                                            <span class="item-price">1250 ₽</span>
+                                        </label>
+                                    </div>
+                                    <div class="calculator-item">
+                                        <label>
+                                            <input type="checkbox" name="item" value="890" data-name="Паста Карбонара">
+                                            <span class="item-name">Паста Карбонара</span>
+                                            <span class="item-price">890 ₽</span>
+                                        </label>
+                                    </div>
+                                    <div class="calculator-item">
+                                        <label>
+                                            <input type="checkbox" name="item" value="1350" data-name="Утиная грудка">
+                                            <span class="item-name">Утиная грудка</span>
+                                            <span class="item-price">1350 ₽</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="category" data-category="desserts">
+                                <h3>Десерты</h3>
+                                <div class="category-items">
+                                    <div class="calculator-item">
+                                        <label>
+                                            <input type="checkbox" name="item" value="550" data-name="Тирамису">
+                                            <span class="item-name">Тирамису</span>
+                                            <span class="item-price">550 ₽</span>
+                                        </label>
+                                    </div>
+                                    <div class="calculator-item">
+                                        <label>
+                                            <input type="checkbox" name="item" value="480" data-name="Чизкейк Нью-Йорк">
+                                            <span class="item-name">Чизкейк Нью-Йорк</span>
+                                            <span class="item-price">480 ₽</span>
+                                        </label>
+                                    </div>
+                                    <div class="calculator-item">
+                                        <label>
+                                            <input type="checkbox" name="item" value="520" data-name="Шоколадный фондан">
+                                            <span class="item-name">Шоколадный фондан</span>
+                                            <span class="item-price">520 ₽</span>
+                                        </label>
+                                    </div>
+                                    <div class="calculator-item">
+                                        <label>
+                                            <input type="checkbox" name="item" value="450" data-name="Крем-брюле">
+                                            <span class="item-name">Крем-брюле</span>
+                                            <span class="item-price">450 ₽</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="category" data-category="drinks">
+                                <h3>Напитки</h3>
+                                <div class="category-items">
+                                    <div class="calculator-item">
+                                        <label>
+                                            <input type="checkbox" name="item" value="450" data-name="Мохито">
+                                            <span class="item-name">Мохито</span>
+                                            <span class="item-price">450 ₽</span>
+                                        </label>
+                                    </div>
+                                    <div class="calculator-item">
+                                        <label>
+                                            <input type="checkbox" name="item" value="580" data-name="Негрони">
+                                            <span class="item-name">Негрони</span>
+                                            <span class="item-price">580 ₽</span>
+                                        </label>
+                                    </div>
+                                    <div class="calculator-item">
+                                        <label>
+                                            <input type="checkbox" name="item" value="320" data-name="Домашний лимонад">
+                                            <span class="item-name">Домашний лимонад</span>
+                                            <span class="item-price">320 ₽</span>
+                                        </label>
+                                    </div>
+                                    <div class="calculator-item">
+                                        <label>
+                                            <input type="checkbox" name="item" value="350" data-name="Бокал вина">
+                                            <span class="item-name">Бокал вина</span>
+                                            <span class="item-price">350 ₽</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="calculator-summary">
+                            <div class="summary-content">
+                                <h3>Ваш заказ</h3>
+                                <div class="order-list" id="order-list">
+                                    <!-- Здесь будут отображаться выбранные позиции -->
+                                    <p class="empty-message">Выберите блюда из меню</p>
+                                </div>
+                                <div class="order-total">
+                                    <div class="total-row">
+                                        <span>Итого:</span>
+                                        <span class="total-price" id="total-price">0 ₽</span>
+                                    </div>
+                                    <div class="total-row discount-row">
+                                        <span>Скидка 10% (при заказе от 3000 ₽):</span>
+                                        <span class="discount-amount" id="discount-amount">0 ₽</span>
+                                    </div>
+                                    <div class="total-row final-row">
+                                        <span>К оплате:</span>
+                                        <span class="final-price" id="final-price">0 ₽</span>
+                                    </div>
+                                </div>
+                                <button class="btn-order" id="btn-order">Заказать выбранное</button>
+                                <button class="btn-clear" id="btn-clear">Очистить заказ</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="calculator-note">
+                        <p>💡 <strong>Примечание:</strong> Стоимость обновляется автоматически при выборе блюд. 
+                        При заказе от 3000 ₽ предоставляется скидка 10%.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Секция "Меню" -->
+        <section id="menu" class="section menu">
+            <div class="container">
+                <h2 class="section-title">Наше меню</h2>
+                <div class="menu-categories">
+                    <button class="menu-category active" data-category="starters">Закуски</button>
+                    <button class="menu-category" data-category="main">Основные блюда</button>
+                    <button class="menu-category" data-category="desserts">Десерты</button>
+                    <button class="menu-category" data-category="drinks">Напитки</button>
+                </div>
+                <div class="menu-items" id="menu-items">
+                    <!-- Контент меню будет загружен через JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Форма бронирования -->
+        <section id="reservation" class="section reservation">
+            <div class="container">
+                <h2 class="section-title">Забронировать стол</h2>
+                <form id="reservation-form" class="reservation-form">
+                    <!-- Скрытые поля для Formspree -->
+                    <input type="hidden" name="_subject" value="Новая бронь стола от ресторана Гастроном">
+                    <input type="hidden" name="_replyto" value="email">
+                    <input type="hidden" name="_language" value="ru">
+                    
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" required placeholder="Ваше имя *">
+                        <span class="error-message"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="phone" name="phone" required placeholder="Телефон *">
+                        <span class="error-message"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" placeholder="Email">
+                        <span class="error-message"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="date" id="date" name="date" required>
+                        <span class="error-message"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="time" id="time" name="time" required>
+                        <span class="error-message"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" id="guests" name="guests" min="1" max="20" required placeholder="Количество гостей *">
+                        <span class="error-message"></span>
+                    </div>
+                    <div class="form-group full-width">
+                        <textarea id="message" name="message" placeholder="Дополнительные пожелания"></textarea>
+                        <span class="error-message"></span>
+                    </div>
+                    <button type="submit" class="btn-submit">Отправить заявку</button>
+                    <div class="form-message" id="form-message"></div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Футер -->
+    <footer id="contacts" class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>Контакты</h3>
+                    <p>г. Москва, ул. Гастрономическая, 15</p>
+                    <p>+7 (495) 123-45-67</p>
+                    <p>info@gastronom.ru</p>
+                </div>
+                <div class="footer-hours">
+                    <h3>Часы работы</h3>
+                    <p>Пн-Чт: 12:00 - 23:00</p>
+                    <p>Пт-Сб: 12:00 - 00:00</p>
+                    <p>Вс: 12:00 - 22:00</p>
+                </div>
+                <div class="footer-social">
+                    <h3>Мы в соцсетях</h3>
+                    <div class="social-links">
+                        <a href="#" aria-label="Instagram">Instagram</a>
+                        <a href="#" aria-label="Facebook">Facebook</a>
+                        <a href="#" aria-label="Telegram">Telegram</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Ресторан "Гастроном". Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Попап форма -->
+    <div class="popup-overlay" id="popup-overlay">
+        <div class="popup">
+            <button class="popup-close" id="popup-close">&times;</button>
+            <h2>Свяжитесь с нами</h2>
+            <form id="contact-form">
+                <!-- Скрытые поля для Formspree -->
+                <input type="hidden" name="_subject" value="Сообщение с сайта ресторана Гастроном">
+                <input type="hidden" name="_replyto" value="popup-email">
+                <input type="hidden" name="_language" value="ru">
+                
+                <div class="form-group">
+                    <input type="text" id="popup-name" name="name" required placeholder="Имя *">
+                    <span class="error-message"></span>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="popup-email" name="email" required placeholder="Email *">
+                    <span class="error-message"></span>
+                </div>
+                <div class="form-group">
+                    <textarea id="popup-message" name="message" required placeholder="Сообщение *"></textarea>
+                    <span class="error-message"></span>
+                </div>
+                <button type="submit" class="btn-submit" id="popup-submit">Отправить</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Скрипты -->
+    <script src="js/main.js"></script>
+    <script src="js/slider.js"></script>
+    <script src="js/calculator.js"></script>
+    <script src="js/form.js"></script>
+</body>
+</html>

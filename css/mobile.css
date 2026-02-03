@@ -1,0 +1,276 @@
+@media screen and (max-width: 768px) {
+    /* Общие стили */
+    .section {
+        padding: 3rem 0;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+    
+    /* Шапка */
+    .header-title {
+        font-size: 2.2rem;
+    }
+    
+    .header-subtitle {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+    }
+    
+    .btn-reserve {
+        padding: 0.9rem 2.5rem;
+        font-size: 1rem;
+    }
+    
+    /* Навигация */
+    .nav-menu,
+    .contact-btn.desktop-contact {
+        display: none;
+    }
+    
+    .mobile-menu-btn {
+        display: flex;
+    }
+    
+    /* О нас */
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .about-image img {
+        height: 300px;
+    }
+    
+    /* Специальные предложения */
+    .specials {
+        padding: 3rem 0;
+    }
+    
+    .specials-container {
+        padding: 0 20px;
+    }
+    
+    .special-slide {
+        padding: 30px 20px;
+    }
+    
+    .slide-content {
+        flex-direction: column;
+        gap: 30px;
+        text-align: center;
+    }
+    
+    .slide-image {
+        flex: 0 0 100%;
+        height: 250px;
+        max-width: 100%;
+    }
+    
+    .slide-title {
+        font-size: 1.8rem;
+        text-align: center;
+    }
+    
+    .slide-description {
+        font-size: 1rem;
+        margin-bottom: 25px;
+    }
+    
+    .slide-price {
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+    
+    .old-price {
+        font-size: 1.3rem;
+    }
+    
+    .new-price {
+        font-size: 1.8rem;
+    }
+    
+    .slide-order-btn {
+        padding: 14px 30px;
+        font-size: 1.1rem;
+        width: 100%;
+        max-width: 250px;
+        margin: 0 auto;
+    }
+    
+    .slider-btn {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .prev-btn {
+        left: 5px;
+    }
+    
+    .next-btn {
+        right: 5px;
+    }
+    
+    .slider-btn svg {
+        width: 22px;
+        height: 22px;
+    }
+    
+    .slider-indicators {
+        margin-top: 25px;
+        gap: 10px;
+    }
+    
+    .indicator {
+        width: 12px;
+        height: 12px;
+        border-width: 2px;
+    }
+    
+    /* Калькулятор */
+    .calculator-form {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .calculator-categories {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .calculator-content {
+        padding: 2rem;
+    }
+    
+    .category {
+        padding: 1.2rem;
+    }
+    
+    .calculator-summary {
+        position: static;
+        margin-top: 1rem;
+    }
+    
+    .order-list {
+        max-height: 200px;
+    }
+    
+    .total-row {
+        font-size: 1rem;
+    }
+    
+    .final-row {
+        font-size: 1.2rem;
+    }
+    
+    .calculator-note {
+        padding: 1rem;
+        font-size: 0.9rem;
+    }
+    
+    /* Форма */
+    .reservation-form {
+        grid-template-columns: 1fr;
+        padding: 2rem;
+        gap: 1rem;
+    }
+    
+    /* Футер */
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+    
+    .social-links {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    /* Меню */
+    .menu-categories {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.8rem;
+    }
+    
+    .menu-category {
+        width: 100%;
+        max-width: 280px;
+        padding: 0.7rem 1.5rem;
+    }
+    
+    .menu-items {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    /* Попап */
+    .popup {
+        padding: 2rem 1.5rem;
+        margin: 0 10px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .header-title {
+        font-size: 1.8rem;
+    }
+    
+    .header-subtitle {
+        font-size: 1rem;
+    }
+    
+    .specials-container {
+        padding: 0 15px;
+    }
+    
+    .special-slide {
+        padding: 20px 15px;
+    }
+    
+    .slide-image {
+        height: 200px;
+    }
+    
+    .slide-title {
+        font-size: 1.6rem;
+    }
+    
+    .slide-description {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+    
+    .slide-price {
+        padding: 10px 15px;
+    }
+    
+    .old-price {
+        font-size: 1.2rem;
+    }
+    
+    .new-price {
+        font-size: 1.6rem;
+    }
+    
+    .slider-btn {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .prev-btn {
+        left: 2px;
+    }
+    
+    .next-btn {
+        right: 2px;
+    }
+    
+    .popup {
+        padding: 1.5rem 1rem;
+    }
+}

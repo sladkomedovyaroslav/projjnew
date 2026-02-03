@@ -1,0 +1,1188 @@
+/* Базовые стили */
+:root {
+    --primary-color: #c19a6b;
+    --secondary-color: #2c2c2c;
+    --text-color: #333;
+    --light-bg: #f9f5f0;
+    --white: #ffffff;
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    color: var(--text-color);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+body.no-scroll {
+    overflow: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Шапка с видео */
+.header {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    overflow: hidden;
+}
+
+.video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -2;
+}
+
+.header-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+}
+
+.header-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3));
+    z-index: -1;
+}
+
+/* Навигация */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(44, 44, 44, 0.95);
+    z-index: 1000;
+    padding: 1rem 0;
+    transition: var(--transition);
+}
+
+.navbar.scrolled {
+    background: rgba(44, 44, 44, 0.98);
+    padding: 0.5rem 0;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    height: 50px;
+    width: auto;
+    transition: var(--transition);
+}
+
+.navbar.scrolled .logo img {
+    height: 40px;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    align-items: center;
+}
+
+.nav-menu a {
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+    padding: 0.5rem 1rem;
+    position: relative;
+    font-size: 1rem;
+}
+
+.nav-menu a:hover {
+    color: var(--primary-color);
+}
+
+/* Выпадающее меню */
+.menu-dropdown {
+    position: relative;
+}
+
+.dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--white);
+    min-width: 220px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    list-style: none;
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 1001;
+    padding: 0.5rem 0;
+}
+
+.menu-dropdown:hover .dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown a {
+    color: var(--text-color);
+    display: block;
+    padding: 0.8rem 1.5rem;
+    transition: var(--transition);
+    font-size: 0.95rem;
+    border-left: 3px solid transparent;
+}
+
+.dropdown a:hover {
+    background: var(--light-bg);
+    color: var(--primary-color);
+    padding-left: 1.8rem;
+    border-left-color: var(--primary-color);
+}
+
+/* Мобильное меню */
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1002;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile-menu-btn span {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background: var(--white);
+    margin: 5px 0;
+    transition: var(--transition);
+    border-radius: 2px;
+}
+
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--white);
+    transform: translateX(-100%);
+    transition: transform 0.4s ease;
+    z-index: 1001;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.mobile-menu.active {
+    transform: translateX(0);
+}
+
+.mobile-menu-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.mobile-menu-close {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--text-color);
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.mobile-menu-close:hover {
+    color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+.mobile-nav {
+    list-style: none;
+    padding: 2rem;
+    flex: 1;
+}
+
+.mobile-nav li {
+    margin-bottom: 1rem;
+}
+
+.mobile-nav a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 1.2rem;
+    display: block;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid #eee;
+    transition: var(--transition);
+    font-weight: 500;
+}
+
+.mobile-nav a:hover {
+    color: var(--primary-color);
+    padding-left: 1rem;
+}
+
+.mobile-dropdown {
+    position: relative;
+}
+
+.dropdown-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mobile-submenu {
+    list-style: none;
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    border-left: 2px solid var(--primary-color);
+}
+
+.mobile-submenu.active {
+    max-height: 300px;
+}
+
+.mobile-submenu li {
+    margin-bottom: 0.5rem;
+}
+
+.mobile-submenu a {
+    font-size: 1.1rem;
+    padding: 0.5rem 0;
+    border-bottom: none;
+}
+
+/* Контент шапки */
+.header-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: var(--white);
+    width: 90%;
+    max-width: 800px;
+    opacity: 0;
+    animation: fadeInUp 1s ease 0.3s forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -40%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.header-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.header-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+    opacity: 0.9;
+}
+
+.btn-reserve {
+    display: inline-block;
+    background: var(--primary-color);
+    color: var(--white);
+    padding: 1rem 3rem;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: var(--transition);
+    border: 2px solid var(--primary-color);
+    font-size: 1.1rem;
+}
+
+.btn-reserve:hover {
+    background: transparent;
+    color: var(--primary-color);
+    transform: translateY(-3px);
+}
+
+.contact-btn {
+    background: transparent;
+    color: var(--white);
+    border: 2px solid var(--primary-color);
+    padding: 0.8rem 2rem;
+    border-radius: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 1rem;
+}
+
+.contact-btn:hover {
+    background: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.mobile-contact {
+    width: 100%;
+    margin-top: 1.5rem;
+    background: var(--primary-color);
+    padding: 1rem;
+    font-size: 1.1rem;
+}
+
+/* Секции */
+.section {
+    padding: 5rem 0;
+}
+
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--secondary-color);
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: var(--primary-color);
+}
+
+/* О нас */
+.about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.about-text p {
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #555;
+}
+
+.about-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.about-image img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.about-image:hover img {
+    transform: scale(1.05);
+}
+
+/* Секция специальных предложений */
+.specials {
+    background-color: var(--light-bg);
+    position: relative;
+    padding: 5rem 0;
+}
+
+.specials-container {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 80px;
+}
+
+.specials-slider {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    background: var(--white);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+.slider-wrapper {
+    display: flex;
+    transition: transform 0.5s ease;
+    width: 100%;
+}
+
+.special-slide {
+    min-width: 100%;
+    flex-shrink: 0;
+    padding: 50px;
+    box-sizing: border-box;
+}
+
+.slide-content {
+    display: flex;
+    gap: 60px;
+    align-items: center;
+}
+
+.slide-image {
+    flex: 0 0 400px;
+    height: 300px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.slide-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.slide-info {
+    flex: 1;
+}
+
+.slide-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: var(--secondary-color);
+    margin-bottom: 20px;
+}
+
+.slide-description {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.slide-price {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin-bottom: 35px;
+}
+
+.old-price {
+    font-size: 1.4rem;
+    color: #999;
+    text-decoration: line-through;
+}
+
+.new-price {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.slide-order-btn {
+    background: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: 16px 40px;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.slide-order-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* Кнопки навигации слайдера */
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--white);
+    border: none;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transition: var(--transition);
+    z-index: 10;
+    color: var(--secondary-color);
+    font-size: 1.5rem;
+}
+
+.slider-btn:hover {
+    background: var(--primary-color);
+    color: var(--white);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.prev-btn {
+    left: 20px;
+}
+
+.next-btn {
+    right: 20px;
+}
+
+.slider-btn svg {
+    width: 28px;
+    height: 28px;
+}
+
+/* Индикаторы слайдов */
+.slider-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 40px;
+    padding: 15px 0;
+}
+
+.indicator {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 3px solid var(--primary-color);
+    background: transparent;
+    cursor: pointer;
+    transition: var(--transition);
+    padding: 0;
+}
+
+.indicator:hover {
+    background: var(--primary-color);
+    transform: scale(1.2);
+}
+
+.indicator.active {
+    background: var(--primary-color);
+    transform: scale(1.3);
+}
+
+/* Секция калькулятора */
+.calculator {
+    background: linear-gradient(135deg, #f9f5f0 0%, #fff 100%);
+}
+
+.calculator-content {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 3rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.calculator-form {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    margin-bottom: 2rem;
+}
+
+.calculator-categories {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.category {
+    background: var(--light-bg);
+    border-radius: 15px;
+    padding: 1.5rem;
+    transition: var(--transition);
+}
+
+.category:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.category h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.category-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.calculator-item {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem;
+    background: var(--white);
+    border-radius: 10px;
+    transition: var(--transition);
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.calculator-item:hover {
+    border-color: var(--primary-color);
+    transform: translateX(5px);
+}
+
+.calculator-item label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    cursor: pointer;
+    user-select: none;
+}
+
+.calculator-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 1rem;
+    cursor: pointer;
+    accent-color: var(--primary-color);
+}
+
+.item-name {
+    flex: 1;
+    font-weight: 500;
+    color: var(--text-color);
+    transition: var(--transition);
+}
+
+.calculator-item:hover .item-name {
+    color: var(--primary-color);
+}
+
+.item-price {
+    font-weight: 700;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    min-width: 80px;
+    text-align: right;
+}
+
+.calculator-summary {
+    background: linear-gradient(135deg, var(--secondary-color), #3a3a3a);
+    border-radius: 15px;
+    padding: 2rem;
+    color: var(--white);
+    position: sticky;
+    top: 100px;
+}
+
+.summary-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.summary-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+    text-align: center;
+}
+
+.order-list {
+    flex: 1;
+    max-height: 250px;
+    overflow-y: auto;
+    margin-bottom: 1.5rem;
+    padding-right: 10px;
+}
+
+.order-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.order-list::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+.order-list::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 3px;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem;
+    margin-bottom: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    animation: fadeIn 0.3s ease;
+}
+
+.order-item-name {
+    flex: 1;
+    font-size: 0.95rem;
+}
+
+.order-item-price {
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-left: 1rem;
+}
+
+.empty-message {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.5);
+    font-style: italic;
+    padding: 2rem 0;
+}
+
+.order-total {
+    margin-top: auto;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding-top: 1.5rem;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
+    font-size: 1.1rem;
+}
+
+.total-row:last-child {
+    margin-bottom: 0;
+}
+
+.discount-row {
+    color: #4CAF50;
+    font-size: 0.95rem;
+    padding: 0.5rem;
+    background: rgba(76, 175, 80, 0.1);
+    border-radius: 5px;
+}
+
+.final-row {
+    font-size: 1.4rem;
+    font-weight: 700;
+    padding-top: 1rem;
+    border-top: 2px solid var(--primary-color);
+    margin-top: 1rem;
+}
+
+.total-price,
+.discount-amount,
+.final-price {
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.btn-order {
+    width: 100%;
+    padding: 1rem;
+    background: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-top: 1.5rem;
+    border: 2px solid var(--primary-color);
+}
+
+.btn-order:hover {
+    background: transparent;
+    color: var(--primary-color);
+    transform: translateY(-3px);
+}
+
+.btn-clear {
+    width: 100%;
+    padding: 0.8rem;
+    background: transparent;
+    color: var(--white);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-top: 1rem;
+}
+
+.btn-clear:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--primary-color);
+}
+
+.calculator-note {
+    background: rgba(193, 154, 107, 0.1);
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-align: center;
+    font-size: 1rem;
+    color: var(--text-color);
+    border-left: 4px solid var(--primary-color);
+}
+
+.calculator-note p {
+    margin: 0;
+}
+
+/* Анимация для добавления элементов */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.price-updated {
+    animation: pulse 0.5s ease;
+}
+
+/* Меню */
+.menu-categories {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.menu-category {
+    padding: 0.8rem 2rem;
+    background: var(--light-bg);
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.menu-category:hover,
+.menu-category.active {
+    background: var(--primary-color);
+    color: var(--white);
+    transform: translateY(-2px);
+}
+
+.menu-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.menu-item {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: var(--transition);
+}
+
+.menu-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.menu-item h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--secondary-color);
+}
+
+.menu-item .price {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.menu-item .description {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Форма бронирования */
+.reservation-form {
+    max-width: 800px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: var(--transition);
+    font-family: 'Roboto', sans-serif;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.form-group textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.btn-submit {
+    grid-column: 1 / -1;
+    padding: 1.2rem;
+    background: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: 600;
+}
+
+.btn-submit:hover {
+    background: #a87c4a;
+    transform: translateY(-2px);
+}
+
+.form-message {
+    grid-column: 1 / -1;
+    padding: 1rem;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 1rem;
+    font-weight: 500;
+}
+
+.form-message.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.form-message.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.error-message {
+    color: #ff4444;
+    font-size: 0.85rem;
+    margin-top: 0.3rem;
+    display: none;
+}
+
+/* Футер */
+.footer {
+    background: var(--secondary-color);
+    color: var(--white);
+    padding: 4rem 0 2rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+.footer h3 {
+    margin-bottom: 1.5rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+.footer-info p,
+.footer-hours p {
+    margin-bottom: 0.8rem;
+    color: #ccc;
+    line-height: 1.6;
+}
+
+.social-links {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.social-links a {
+    color: var(--white);
+    text-decoration: none;
+    transition: var(--transition);
+    padding: 0.5rem 1rem;
+    background: rgba(255,255,255,0.1);
+    border-radius: 5px;
+}
+
+.social-links a:hover {
+    background: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    color: #999;
+    font-size: 0.9rem;
+}
+
+/* Попап */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    padding: 20px;
+}
+
+.popup {
+    background: var(--white);
+    padding: 3rem;
+    border-radius: 20px;
+    max-width: 500px;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+}
+
+.popup-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--text-color);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.popup-close:hover {
+    background: var(--light-bg);
+    color: var(--primary-color);
+}
+
+.popup h2 {
+    margin-bottom: 2rem;
+    text-align: center;
+    color: var(--secondary-color);
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+}
+
+/* Утилиты */
+.fade-in {
+    animation: fadeIn 0.5s ease forwards;
+}
